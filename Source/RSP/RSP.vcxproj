@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A7ED562C-63F3-4B7E-B6B3-2CF7848752E1}</ProjectGuid>
+    <RootNamespace>RSP</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(Root)Plugin/RSP/RSP_d 1.7.dll</OutputFile>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(Root)Plugin/RSP/RSP 1.7.dll</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="breakpoint.c" />
+    <ClCompile Include="Cpu.c" />
+    <ClCompile Include="dma.c" />
+    <ClCompile Include="Interpreter CPU.c" />
+    <ClCompile Include="Interpreter Ops.c" />
+    <ClCompile Include="log.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="memory.c" />
+    <ClCompile Include="Mmx.c" />
+    <ClCompile Include="Profiling.cpp" />
+    <ClCompile Include="Recompiler Analysis.c" />
+    <ClCompile Include="Recompiler CPU.c" />
+    <ClCompile Include="Recompiler Ops.c" />
+    <ClCompile Include="Recompiler Sections.c" />
+    <ClCompile Include="RSP Command.c" />
+    <ClCompile Include="RSP Register.c" />
+    <ClCompile Include="Sse.c" />
+    <ClCompile Include="X86.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="breakpoint.h" />
+    <ClInclude Include="Cpu.h" />
+    <ClInclude Include="dma.h" />
+    <ClInclude Include="Interpreter CPU.h" />
+    <ClInclude Include="Interpreter Ops.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="OpCode.h" />
+    <ClInclude Include="Profiling.h" />
+    <ClInclude Include="Recompiler CPU.h" />
+    <ClInclude Include="Recompiler Ops.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RSP Command.h" />
+    <ClInclude Include="RSP Registers.h" />
+    <ClInclude Include="Rsp.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="X86.h" />
+    <ClInclude Include="Support\CriticalSection.h" />
+    <ClInclude Include="Support\Ini File Class.h" />
+    <ClInclude Include="Support\Log Class.h" />
+    <ClInclude Include="Support\md5.h" />
+    <ClInclude Include="Support\std string.h" />
+    <ClInclude Include="Support\Support.h" />
+    <ClInclude Include="Support\Version.h" />
+    <ClInclude Include="Support\XString.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RSP.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
