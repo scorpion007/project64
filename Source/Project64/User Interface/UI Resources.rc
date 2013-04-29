@@ -110,7 +110,7 @@ BEGIN
     EDITTEXT        IDC_SNAP_DIR,18,118,170,12,ES_AUTOHSCROLL
     PUSHBUTTON      "...",IDC_SELECT_SNAP_DIR,193,118,14,12
     GROUPBOX        "Texture Directory",IDC_DIR_TEXTURE_FRAME,5,131,208,34
-    CONTROL         "$AppPath\\textures-load\\",IDC_TEXTURE_DEFAULT,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,6,140,179,8
+    CONTROL         "$AppPath\\textures\\",IDC_TEXTURE_DEFAULT,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,6,140,179,8
     CONTROL         "",IDC_TEXTURE_OTHER,"Button",BS_AUTORADIOBUTTON,6,150,11,12
     EDITTEXT        IDC_TEXTURE_DIR,18,149,170,12,ES_AUTOHSCROLL
     PUSHBUTTON      "...",IDC_SELECT_TEXTURE_DIR,193,149,14,12
@@ -930,8 +930,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,1,0,0
- PRODUCTVERSION 2,1,0,0
+ FILEVERSION 2,1,0,1
+ PRODUCTVERSION 2,1,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -948,12 +948,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", " "
             VALUE "FileDescription", "Project 64"
-            VALUE "FileVersion", "2, 1, 0, 0"
+            VALUE "FileVersion", "2, 1, 0, 1"
             VALUE "InternalName", "Project64"
             VALUE "LegalCopyright", "Copyright © 2013"
             VALUE "OriginalFilename", "Project64.exe"
             VALUE "ProductName", " Project64"
-            VALUE "ProductVersion", "2, 1, 0, 0"
+            VALUE "ProductVersion", "2, 1, 0, 1"
         END
     END
     BLOCK "VarFileInfo"
