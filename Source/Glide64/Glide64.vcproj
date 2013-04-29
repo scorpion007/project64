@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			ConfigurationType="2"
-			InheritedPropertySheets="../../PropertySheets/Win32.Debug.vsprops"
+			InheritedPropertySheets="$(SolutionDir)PropertySheets/Win32.Debug.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -80,7 +80,7 @@
 		<Configuration
 			Name="Release|Win32"
 			ConfigurationType="2"
-			InheritedPropertySheets="../../PropertySheets/Win32.Release.vsprops"
+			InheritedPropertySheets="$(SolutionDir)PropertySheets/Win32.Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
