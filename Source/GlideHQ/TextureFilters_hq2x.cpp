@@ -25,6 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "TextureFilters.h"
 
+// warning C4127: conditional expression is constant
+#pragma warning(disable: 4127)
+
+// warning C4505: 'hq2x_interp_32_###' : unreferenced local function has been removed
+#pragma warning(disable: 4505)
+
 /************************************************************************/
 /* hq2x filters                                                         */
 /************************************************************************/

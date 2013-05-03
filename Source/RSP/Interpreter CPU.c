@@ -40,6 +40,12 @@
 
 DWORD RSP_NextInstruction, RSP_JumpTo;
 
+// warning C4152: nonstandard extension, function/data pointer conversion in expression
+#pragma warning(disable: 4152)
+
+// warning C4055: 'type cast' : from data pointer 'void *' to function pointer 'void (__cdecl *)()'
+#pragma warning(disable: 4055)
+
 void BuildInterpreterCPU(void) {
 	RSP_Opcode[ 0] = RSP_Opcode_SPECIAL;
 	RSP_Opcode[ 1] = RSP_Opcode_REGIMM;
@@ -403,10 +409,8 @@ void BuildInterpreterCPU(void) {
 }
 
 DWORD RunInterpreterCPU(DWORD Cycles) {
-	DWORD CycleCount;
 	RSP_Running = TRUE;
 	Enable_RSP_Commands_Window();
-	CycleCount = 0;
 
 	while (RSP_Running) {
 		if (NoOfBpoints != 0) {

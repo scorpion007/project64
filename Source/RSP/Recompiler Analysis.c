@@ -130,7 +130,6 @@ DWORD WriteToAccum2 (int Location, int PC, BOOL RecursiveCall) {
 	OPCODE RspOp;
 	DWORD BranchTarget = 0;
 	signed int BranchImmed = 0;
-	DWORD JumpTarget = 0;
 	int Instruction_State = NextInstruction;
 
 	if (Compiler.bAccum == FALSE) return TRUE;
@@ -425,8 +424,6 @@ BOOL WriteToVectorDest2 (DWORD DestReg, int PC, BOOL RecursiveCall) {
 	OPCODE RspOp;
 	DWORD BranchTarget = 0;
 	signed int BranchImmed = 0;
-	DWORD JumpTarget = 0;
-
 	int Instruction_State = NextInstruction;
 
 	if (Compiler.bDest == FALSE) return TRUE;

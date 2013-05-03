@@ -38,6 +38,9 @@
 #include "log.h"
 #include "x86.h"
 
+// warning C4055: 'type cast' : from data pointer 'void *' to function pointer 'void (__cdecl *)()'
+#pragma warning(disable: 4055)
+
 extern UWORD32 Recp, RecpResult, SQroot, SQrootResult;
 extern BOOL AudioHle, GraphicsHle;
 

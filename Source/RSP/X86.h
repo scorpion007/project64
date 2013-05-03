@@ -244,6 +244,9 @@ void SseMoveUnalignedRegToN64Mem	( int sseReg, int AddrReg );
 void SseMoveRegToReg				( int Dest, int Source );
 void SseXorRegToReg					( int Dest, int Source );
 
+// warning C4201: nonstandard extension used : nameless struct/union
+#pragma warning(disable: 4201)
+
 typedef struct {
 	union {
 		struct {

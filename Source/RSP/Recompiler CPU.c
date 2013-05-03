@@ -55,6 +55,12 @@ RSP_CODE RspCode;
 
 BYTE * pLastSecondary = NULL, * pLastPrimary = NULL;
 
+// warning C4152: nonstandard extension, function/data pointer conversion in expression
+#pragma warning(disable: 4152)
+
+// warning C4055: 'type cast' : from data pointer 'void *' to function pointer 'void (__cdecl *)()'
+#pragma warning(disable: 4055)
+
 void BuildRecompilerCPU ( void ) {
 	RSP_Opcode[ 0] = Compile_SPECIAL;
 	RSP_Opcode[ 1] = Compile_REGIMM;
@@ -895,7 +901,7 @@ DWORD RunRecompilerCPU ( DWORD Cycles ) {
 
 	while (RSP_Running) 
 	{
-		Block = *(JumpTable + (*PrgCount >> 2));
+		Block = *(BYTE **)(JumpTable + (*PrgCount >> 2));
 
 		if (Block == NULL) {
 			if (Profiling && !IndvidualBlock) {
@@ -913,7 +919,7 @@ DWORD RunRecompilerCPU ( DWORD Cycles ) {
 				continue;
 			}
 			
-			Block = *(JumpTable + (*PrgCount >> 2));
+			Block = *(BYTE **)(JumpTable + (*PrgCount >> 2));
 
 			/*
 			** we are done compiling, but we may have references
