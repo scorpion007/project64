@@ -25,7 +25,6 @@
 #include <windows.h>
 #include <Commctrl.h>
 #include <tchar.h>
-#include <stdio.h>
 #include "NRagePluginV2.h"
 #include "DirectInput.h"
 #include "Interface.h"

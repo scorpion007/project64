@@ -25,7 +25,6 @@
 #include <windows.h>
 #include <CommDlg.h>
 #include <tchar.h>
-#include <stdio.h>
 #include <shlobj.h>
 #include "NRagePluginV2.h"
 #include "PakIO.h"

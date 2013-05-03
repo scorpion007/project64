@@ -24,7 +24,6 @@
 #include "commonIncludes.h"
 #include <windows.h>
 #include <Commctrl.h>
-#include <stdio.h>
 #include "NRagePluginV2.h"
 #include "DirectInput.h"
 #include "XInputController.h"

@@ -24,7 +24,6 @@
 #include <wchar.h>
 #include <tchar.h>
 #include "resource.h"
-#include <stdio.h>
 
 BOOL IsXInputDevice( const GUID* pGuidProductFromDirectInput )
 {
