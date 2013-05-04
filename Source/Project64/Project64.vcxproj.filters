@@ -23,9 +23,6 @@
     <Filter Include="Source Files\User Interface Source\Debugger Source">
       <UniqueIdentifier>{594477cb-2b53-44f2-a04d-efa9bb33d12b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Multilanguage Source">
-      <UniqueIdentifier>{485a6c0b-1f36-4a7a-913e-453eeb703fd9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\N64 System Source">
       <UniqueIdentifier>{40359b2b-cf54-40ca-91e6-0bdd23867553}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,9 @@
     </Filter>
     <Filter Include="Logs\Release">
       <UniqueIdentifier>{704f158e-16a4-48f4-9b3d-fef38c7b4b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\N64 System Source\Multilanguage Source">
+      <UniqueIdentifier>{485a6c0b-1f36-4a7a-913e-453eeb703fd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,7 +283,7 @@
       <Filter>Source Files\User Interface Source\Debugger Source</Filter>
     </ClCompile>
     <ClCompile Include="Multilanguage\Language Class.cpp">
-      <Filter>Source Files\Multilanguage Source</Filter>
+      <Filter>Source Files\N64 System Source\Multilanguage Source</Filter>
     </ClCompile>
     <ClCompile Include="N64 System\Cheat Class.cpp">
       <Filter>Source Files\N64 System Source</Filter>
@@ -425,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="3rd Party\zlib\zip.c">
       <Filter>Source Files\3rd Party Source\ZLib Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Plugins\Plugin.cpp">
+      <Filter>Source Files\Plugin Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -872,6 +875,9 @@
     </ClInclude>
     <ClInclude Include="3rd Party\zlib\ZLIB.H">
       <Filter>Header Files\3rd Party Headers\Zlib Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\Plugin.h">
+      <Filter>Header Files\Plugin Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

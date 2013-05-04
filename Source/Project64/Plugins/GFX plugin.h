@@ -10,7 +10,7 @@
 ****************************************************************************/
 #pragma once
 
-class CGfxPlugin  
+class CGfxPlugin : public CPlugin
 {
 	typedef struct {
 		/* Menu */
@@ -46,20 +46,13 @@ class CGfxPlugin
 	} DEBUG_INFO;
 
 public:
-	CGfxPlugin  ( const char * FileName);
-	~CGfxPlugin ( void );
+	CGfxPlugin(const char * FileName);
+	~CGfxPlugin();
 
 	bool Initiate   ( CN64System * System, CMainGui * RenderWindow );
-	bool Initilized ( void ) { return m_Initilized; }
-	void Close      ( void );
-	void RomOpened  ( void );
-	void RomClose   ( void );
-	void GameReset  ( void );
-	stdstr PluginName ( void ) const { return m_PluginInfo.Name; }
 
 	void (__cdecl *CaptureScreen)      ( const char * );
 	void (__cdecl *ChangeWindow)       ( void );
-	void (__cdecl *Config)          ( DWORD hParent );
 	void (__cdecl *DrawScreen)         ( void );
 	void (__cdecl *DrawStatus)         ( const char * lpString, BOOL RightAlign );
 	void (__cdecl *MoveScreen)         ( int xpos, int ypos );
@@ -78,28 +71,68 @@ public:
 	MENU_HANDLE GetDebugMenu (void ) { return m_GFXDebug.hGFXMenu; }
 	void ProcessMenuItem (int id );
 
+	void UnloadPlugin();
+
 private:
 	CGfxPlugin(void);							// Disable default constructor
 	CGfxPlugin(const CGfxPlugin&);				// Disable copy constructor
 	CGfxPlugin& operator=(const CGfxPlugin&);	// Disable assignment
 
-	void Init ( const char * FileName );
-	void UnloadPlugin         ( void );
+	virtual int GetDefaultSettingStartRange() const { return FirstGfxDefaultSet; }
+	virtual int GetSettingStartRange() const { return FirstGfxSettings; }
+
+	bool Init (const char * FileName);
 
 	GFXDEBUG_INFO m_GFXDebug;
-	void * m_hDll;	
-	bool m_Initilized, m_RomOpen;
-	PLUGIN_INFO m_PluginInfo;
 
-	void (__cdecl *CloseDLL)         ( void );
-	void (__cdecl *RomOpen)          ( void );
-	void (__cdecl *RomClosed)        ( void );
-	void (__cdecl *GetDebugInfo)     ( GFXDEBUG_INFO * GFXDebugInfo );
-	void (__cdecl *InitiateDebugger) ( DEBUG_INFO DebugInfo);
-	void (__cdecl *PluginOpened)     ( void );
-	void (__cdecl *SetSettingInfo)   ( PLUGIN_SETTINGS * info );
-	void (__cdecl *SetSettingInfo2)  ( PLUGIN_SETTINGS2 * info );
-	void (__cdecl *SetSettingInfo3)  ( PLUGIN_SETTINGS3 * info );
+
+	typedef struct {
+		HWND hWnd;			/* Render window */
+		HWND hStatusBar;    /* if render window does not have a status bar then this is NULL */
+
+		BOOL MemoryBswaped;    // If this is set to TRUE, then the memory has been pre
+							   //   bswap on a dword (32 bits) boundry 
+							   //	eg. the first 8 bytes are stored like this:
+							   //        4 3 2 1   8 7 6 5
+
+		BYTE * HEADER;	// This is the rom header (first 40h bytes of the rom
+						// This will be in the same memory format as the rest of the memory.
+		BYTE * RDRAM;
+		BYTE * DMEM;
+		BYTE * IMEM;
+
+		DWORD * MI__INTR_REG;
+
+		DWORD * DPC__START_REG;
+		DWORD * DPC__END_REG;
+		DWORD * DPC__CURRENT_REG;
+		DWORD * DPC__STATUS_REG;
+		DWORD * DPC__CLOCK_REG;
+		DWORD * DPC__BUFBUSY_REG;
+		DWORD * DPC__PIPEBUSY_REG;
+		DWORD * DPC__TMEM_REG;
+
+		DWORD * VI__STATUS_REG;
+		DWORD * VI__ORIGIN_REG;
+		DWORD * VI__WIDTH_REG;
+		DWORD * VI__INTR_REG;
+		DWORD * VI__V_CURRENT_LINE_REG;
+		DWORD * VI__TIMING_REG;
+		DWORD * VI__V_SYNC_REG;
+		DWORD * VI__H_SYNC_REG;
+		DWORD * VI__LEAP_REG;
+		DWORD * VI__H_START_REG;
+		DWORD * VI__V_START_REG;
+		DWORD * VI__V_BURST_REG;
+		DWORD * VI__X_SCALE_REG;
+		DWORD * VI__Y_SCALE_REG;
+
+		void (__cdecl *CheckInterrupts)( void );
+	} GFX_INFO;
+
+	BOOL (__cdecl *InitiateGFX)		(GFX_INFO Gfx_Info);
+	void (__cdecl *GetDebugInfo)	(GFXDEBUG_INFO * GFXDebugInfo);
+	void (__cdecl *InitiateDebugger)(DEBUG_INFO DebugInfo);
 
 	static void __cdecl DummyDrawScreen      ( void ) {}
 	static void __cdecl DummyMoveScreen      ( int /*xpos*/, int /*ypos*/ ) {}
