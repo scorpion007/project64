@@ -20,12 +20,86 @@ CPlugin::CPlugin() :
 	RomClosed(NULL),
 	CloseDLL(NULL),
 	PluginLoaded(NULL),
+	DllAbout(NULL),
 	DllConfig(NULL),
 	SetSettingInfo(NULL),
 	SetSettingInfo2(NULL),
 	SetSettingInfo3(NULL)
 {
 	memset(&m_PluginInfo, 0, sizeof(m_PluginInfo));
+}
+
+// Load & initialise arbitrary plugin
+CPlugin * CPlugin::InitPlugin(const char * FileName)
+{
+	/*
+		This is done in two steps.
+		First we need to load the plugin to determine what type of plugin it is (GFX, audio, RSP, controller)...
+		and then we need to create an appropriate plugin instance, and load it properly according to the plugin.
+	
+		This way plugin behaviour is consistent.
+	*/
+	CPlugin * plugin = NULL;
+	HMODULE hModule = LoadPlugin(FileName);
+	if (hModule == NULL)
+		return plugin;
+
+	// Ensure we can pull information about the plugin.
+	void (__cdecl *GetDllInfo)(PLUGIN_INFO *)
+		= (void (__cdecl *)(PLUGIN_INFO *))GetProcAddress(hModule, "GetDllInfo");
+	if (GetDllInfo == NULL)
+	{
+		FreeLibrary(hModule);
+		return plugin;
+	}
+
+	// Attempt to retrieve plugin information.
+	PLUGIN_INFO PluginInfo;
+	GetDllInfo(&PluginInfo);
+
+	// We no longer need this DLL instance for anything (we'll load it again properly, if all is well).
+	FreeLibrary(hModule);
+
+	// Verify that the plugin version is indeed correct (no point continuing, otherwise)
+	if (!CPluginList::ValidPluginVersion(PluginInfo))
+		return plugin;
+
+	// Now initialise the plugin appropriately, for consistency.
+	switch (PluginInfo.Type)
+	{
+	case PLUGIN_TYPE_RSP:
+		plugin = new CRSP_Plugin(FileName);
+		break;
+
+	case PLUGIN_TYPE_GFX:
+		plugin = new CGfxPlugin(FileName);
+		break;
+
+	case PLUGIN_TYPE_AUDIO:
+		plugin = new CAudioPlugin(FileName);
+		break;
+
+	case PLUGIN_TYPE_CONTROLLER:
+		plugin = new CControl_Plugin(FileName);
+		break;
+	}
+
+	// We should now have an initialised plugin instance...
+	// or NULL.
+	return plugin;
+}
+
+HMODULE CPlugin::LoadPlugin(const char * FileName)
+{
+	HMODULE hModule = NULL;
+	UINT LastErrorMode = SetErrorMode(SEM_FAILCRITICALERRORS);
+	hModule = LoadLibrary(FileName);
+	SetErrorMode(LastErrorMode);
+	if (hModule == NULL)
+		return NULL;
+
+	FixUPXIssue((BYTE *)hModule);
+	return hModule;
 }
 
 bool CPlugin::Init(const char * FileName)
@@ -35,14 +109,9 @@ bool CPlugin::Init(const char * FileName)
 		UnloadPlugin();
 
 	// Try to load the plugin DLL
-	UINT LastErrorMode = SetErrorMode(SEM_FAILCRITICALERRORS);
-	m_hDll = LoadLibrary(FileName);
-	SetErrorMode(LastErrorMode);
-	
+	m_hDll = LoadPlugin(FileName);
 	if (m_hDll == NULL)
 		return false;
-
-	FixUPXIssue((BYTE *)m_hDll);
 
 	// Get DLL information
 	void (__cdecl *GetDllInfo) (PLUGIN_INFO * PluginInfo);
@@ -57,6 +126,7 @@ bool CPlugin::Init(const char * FileName)
 	LoadFunction(CloseDLL);
 	LoadFunction(RomOpen);
 	LoadFunction(RomClosed);
+	LoadFunction(DllAbout);
 	LoadFunction(DllConfig);
 
 	if (CloseDLL == NULL

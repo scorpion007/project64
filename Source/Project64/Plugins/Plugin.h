@@ -15,14 +15,21 @@ class CPlugin
 public:
 	CPlugin();
 
-	stdstr PluginName() const { return m_PluginInfo.Name; }
-	bool Initilized() { return m_Initilized; }
+	inline PLUGIN_INFO * GetInfo() { return &m_PluginInfo; }
+	inline stdstr PluginName() const { return m_PluginInfo.Name; }
+	inline bool Initilized() { return m_Initilized; }
 
 	virtual int GetDefaultSettingStartRange() const = 0;
 	virtual int GetSettingStartRange() const = 0;
 
+	// Load & initialise arbitrary plugin
+	static CPlugin * InitPlugin(const char * FileName);
+
+private:
+	static HMODULE LoadPlugin(const char * FileName);
+
+public:
 	virtual bool Init(const char * FileName);
-	// virtual bool Initiate(CPlugins * Plugins, CN64System * System) = 0;
 
 	void RomOpened();
 	void RomClose ();
@@ -37,7 +44,8 @@ public:
 	void (__cdecl *RomClosed)	    (void);
 	void (__cdecl *PluginLoaded)	(void);
 
-	void  (__cdecl *DllConfig)		(DWORD hParent);
+	void (__cdecl *DllAbout)		(HWND hWnd);
+	void (__cdecl *DllConfig)		(DWORD hParent);
 
 	void (__cdecl *SetSettingInfo)	(PLUGIN_SETTINGS  *);
 	void (__cdecl *SetSettingInfo2)	(PLUGIN_SETTINGS2 *);

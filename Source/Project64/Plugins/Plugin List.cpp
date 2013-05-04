@@ -61,55 +61,25 @@ void CPluginList::AddPluginFromDir ( CPath Dir)
 	Dir.SetNameExtension("*.dll");
 	if (Dir.FindFirst())
 	{
-		HMODULE hLib = NULL;
-		do {
-			if (hLib)
-			{
-				FreeLibrary(hLib);
-				hLib = NULL;
-			}
+		do 
+		{
+			WriteTraceF(TraceDebug,__FUNCTION__ ": loading %s", (LPCSTR)Dir);
 
-			UINT LastErrorMode = SetErrorMode( SEM_FAILCRITICALERRORS );
-			WriteTraceF(TraceDebug,__FUNCTION__ ": loading %s",(LPCSTR)Dir);
-			hLib = LoadLibrary(Dir);		
-			SetErrorMode(LastErrorMode);
-
-			if (hLib == NULL) 
-			{ 
+			CPlugin * plugin = CPlugin::InitPlugin((LPCTSTR)Dir);
+			if (plugin == NULL)
 				continue;
-			}
 
-			void (__cdecl *GetDllInfo) ( PLUGIN_INFO * PluginInfo );
-			GetDllInfo = (void (__cdecl *)(PLUGIN_INFO *))GetProcAddress( hLib, "GetDllInfo" );
-			if (GetDllInfo == NULL) 
-			{
-				continue;
-			}
-			
-			PLUGIN Plugin;
-			memset(&Plugin.Info,0,sizeof(Plugin.Info));
-			Plugin.Info.MemoryBswaped = true;
-			GetDllInfo(&Plugin.Info);
-			if (!ValidPluginVersion(Plugin.Info))
-			{
-				continue;
-			}
-
+			PLUGIN Plugin = {0}; 
+			memcpy(&Plugin.Info, plugin->GetInfo(), sizeof(PLUGIN_INFO));
 			Plugin.FullPath = Dir;
 			Plugin.FileName = ((stdstr &)Dir).substr(((stdstr &)m_PluginDir).length());
 
-			if (GetProcAddress(hLib,"DllAbout") != NULL) 
-			{
+			if (plugin->DllAbout != NULL) 
 				Plugin.AboutFunction = true;
-			}
-			m_PluginList.push_back(Plugin);
-		} while (Dir.FindNext());
 
-		if (hLib)
-		{
-			FreeLibrary(hLib);
-			hLib = NULL;
-		}
+			m_PluginList.push_back(Plugin);
+			delete plugin;
+		} while (Dir.FindNext());
 	}
 }
 
