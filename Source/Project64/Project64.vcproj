@@ -669,6 +669,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Plugins\Plugin.cpp"
+					>
+				</File>
+				<File
 					RelativePath="Plugins\RSP Plugin.cpp"
 					>
 				</File>
@@ -1419,6 +1423,10 @@
 				</File>
 				<File
 					RelativePath="Plugins\Plugin List.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Plugins\Plugin.h"
 					>
 				</File>
 				<File
