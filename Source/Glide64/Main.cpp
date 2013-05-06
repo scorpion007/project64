@@ -333,7 +333,7 @@ void ReadSettings ()
 	settings.scr_res_y = settings.res_y = resolutions[settings.res_data][1];
 	settings.vsync = GetSetting(Set_vsync);
 	settings.ssformat = (wxUint8)GetSetting(Set_ssformat);
-	settings.show_fps = (wxUint8)GetSetting(Set_ShowFps);
+	settings.show_fps = (wxUint8)(GetSetting(Set_ShowFps) & 0xFF);
 	settings.clock = GetSetting(Set_clock);
 	settings.clock_24_hr = GetSetting(Set_clock_24_hr);
 	settings.advanced_options = Set_basic_mode ? !GetSystemSetting(Set_basic_mode) : 0;
