@@ -89,7 +89,6 @@ the plugin
 #include <fstream>
 #include <stddef.h>		// offsetof
 #include <glide.h>
-#include <Common/MemTest.h>
 #include <settings/Settings.h>
 #include "GlideExtensions.h"
 #include "rdp.h"
