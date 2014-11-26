@@ -80,6 +80,8 @@
       <DataExecutionPrevention>false</DataExecutionPrevention>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <!-- We can't use /safeseh since we link against a pre-built htmlhelp.lib which wasn't built this way. -->
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Beta Release|Win32'">

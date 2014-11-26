@@ -42,6 +42,12 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Root)Plugin\Input\</OutDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)d</TargetName>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <!-- We can't use /safeseh since we link against a pre-built htmlhelp.lib which wasn't built this way. -->
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(Root)Source\3rd Party\directx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
