@@ -1,4 +1,9 @@
 *.user
+*.opensdf
+*.sdf
+*.suo
+*.i
+ipch/
 /Bin/Debug/SyncPlugin
 /Bin/Debug/lib
 /Bin/Debug/Logs
