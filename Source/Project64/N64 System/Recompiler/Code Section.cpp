@@ -405,7 +405,7 @@ void CCodeSection::GenerateSectionLinkage (void)
 	//		if (g_SyncSystem) {
 				MoveConstToX86reg((DWORD)g_BaseSystem,x86_ECX);
 				Call_Direct(AddressOf(&CN64System::SyncSystem), "CN64System::SyncSystem"); 
-			}
+	//		}
 	//	MoveConstToVariable(DELAY_SLOT,&m_NextInstruction,"m_NextInstruction");
 		PushImm32(stdstr_f("0x%08X",CompilePC() + 4).c_str(),CompilePC() + 4);
 		
