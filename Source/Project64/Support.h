@@ -1,7 +1,5 @@
 #include <windows.h>
 
-#include <common/memtest.h>
-//#include "Support/CppSeh.h"
 #include <common/CriticalSection.h>
 #include <common/std string.h>
 #include <common/File Class.h>
