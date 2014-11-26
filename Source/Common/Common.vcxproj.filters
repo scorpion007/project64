@@ -23,9 +23,6 @@
     <ClCompile Include="md5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MemTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="osversion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
