@@ -60,7 +60,6 @@
     <ClCompile Include="Ini File Class.cpp" />
     <ClCompile Include="Log Class.cpp" />
     <ClCompile Include="md5.cpp" />
-    <ClCompile Include="MemTest.cpp" />
     <ClCompile Include="osversion.cpp" />
     <ClCompile Include="path.cpp" />
     <ClCompile Include="registry.cpp" />
