@@ -5,9 +5,16 @@ project(project64)
 # Warnings as errors
 # Disable C4127: Conditional expression is constant.
 #
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX /W4 /wd4127 -DUNICODE -D_UNICODE")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4127")
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 set (PJ64_SRC_PATH Source/Project64)
+
+include_directories(
+  ${PJ64_SRC_PATH}
+  Source
+  Source/3rd\ Party
+)
 
 set (N64_SYS_SRCS
   ${PJ64_SRC_PATH}/N64\ System/Cheat\ Class.cpp
